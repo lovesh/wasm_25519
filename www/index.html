@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Demo for wasm-25519.</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <style>
+        .output_area {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+  </head>
+  <body>
+    <noscript>This page contains webassembly and javascript content, please enable javascript in your browser.</noscript>
+    <script src="./bootstrap.js"></script>
+
+    <script type="module">
+      /*function newKeypair() {
+        console.log(genKeypair());
+      }
+      document.querySelector("#new_kp_button").addEventListener("click", newKeypair);*/
+    </script>
+    <div class="container">
+      <div class="row">
+        <h3 class="row">Keypair for key exchange</h3>
+        <button class="row" id="new_kp_button"> Generate new keypair</button>
+      </div>
+      <div class="row" id="keys" style="display: none;" class="output_area">
+        <span class="row">Secret key is <span id="sk"></span></span>
+        <span class="row">Public key is <span id="pk"></span></span>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <h3 class="row">Generate shared secret using Diffie-Hellman key exchange</h3>
+        <span class="row">Your secret key: <input type="text" id="your_sk"></span>
+        <span class="row">Their public key: <input type="text" id="their_pk"></span>
+        <button class="row" id="dhe_ss_button"> Generate shared secret</button>
+      </div>
+      <div class="row" id="dhe_shared_secret" style="display: none;" class="output_area">
+        <span class="row">Shared secret is <span id="dhe_ss"></span></span>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <h3 class="row">Generate shared secret using x25519 key exchange</h3>
+        <span class="row">Your secret key: <input type="text" id="x25519_your_sk"></span>
+        <span class="row">Their public key: <input type="text" id="x25519_their_pk"></span>
+        <button class="row" id="x25519_ss_button"> Generate shared secret</button>
+      </div>
+      <div class="row" id="x25519_shared_secret" style="display: none;" class="output_area">
+        <span class="row">Shared secret is <span id="x25519_ss"></span></span>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <h3 class="row">Keypair for signing and verification</h3>
+        <button class="row" id="new_sig_kp_button"> Generate new keypair</button>
+      </div>
+      <div id="sig_keys" style="display: none;" class="output_area">
+        <span class="row">Secret key is <span id="sig_sk"></span></span>
+        <span class="row">Public key is <span id="sig_pk"></span></span>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <h3 class="row">Sign message</h3>
+        <span class="row">Secret key: <input type="text" id="sig_sk_val"></span>
+        <span class="row">Public key: <input type="text" id="sig_pk_val"></span>
+        <span class="row">Message: <input type="text" id="sig_msg"></span>
+        <button class="row" id="sig_button"> Generate signature</button>
+      </div>
+      <div class="row" id="sig" style="display: none;" class="output_area">
+        <span class="row">Signature is <span id="sig_val"></span></span>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <h3 class="row">Verify signature</h3>
+        <span class="row">Public key: <input type="text" id="ver_sig_pk_val"></span>
+        <span class="row">Message: <input type="text" id="ver_sig_msg"></span>
+        <span class="row">Signature: <input type="text" id="ver_sig"></span>
+        <button class="row" id="ver_sig_button"> Verify signature</button>
+      </div>
+      <div class="row" id="ver_result" class="output_area">
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <h3 class="row">Sign prehashed message</h3>
+        <span class="row">Secret key: <input type="text" id="sig_ph_sk_val"></span>
+        <span class="row">Public key: <input type="text" id="sig_ph_pk_val"></span>
+        <span class="row">Message: <input type="text" id="sig_ph_msg"></span>
+        <button class="row" id="sig_ph_button"> Generate signature</button>
+      </div>
+      <div class="row" id="sig_ph" style="display: none;" class="output_area">
+        <span class="row">Signature is <span id="sig_ph_val"></span></span>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <h3 class="row">Verify signature over prehashed message </h3>
+        <span class="row">Public key: <input type="text" id="ver_sig_ph_pk_val"></span>
+        <span class="row">Message: <input type="text" id="ver_sig_ph_msg"></span>
+        <span class="row">Signature: <input type="text" id="ver_sig_ph"></span>
+        <button class="row" id="ver_sig_ph_button"> Verify signature</button>
+      </div>
+      <div class="row" id="ver_ph_result" class="output_area">
+      </div>
+    </div>
+  </body>
+</html>
